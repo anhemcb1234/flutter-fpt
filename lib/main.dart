@@ -3,6 +3,7 @@ import 'package:project_app/home.dart';
 import 'package:project_app/register.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: LoginPage(),
     );
   }
@@ -28,6 +30,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final storage = new FlutterSecureStorage();
   bool _showPass = false;
   final TextEditingController _userController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
@@ -154,35 +157,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> onSignInClicked() async {
-    debugPrint('movieTitle $_email');
-    debugPrint('movieTitle $_password');
-    //     final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
-
-    //   if (response.statusCode == 200) {
-    //     print(response.body);
-    //   } else {
-    //     print('Request failed with status: ${response.statusCode}.');
-    //   }
-    // setState(() {
-    // if (_userController.text.length < 6 ||
-    //     !_userController.text.contains("@")) {
-    //   _userInvalid = true;
-    // } else {
-    //   _userInvalid = false;
-    // }
-
-    // if (_passController.text.length < 6) {
-    //   _passInvalid = true;
-    // } else {
-    //   _passInvalid = false;
-    // }
-
-    // if (!_userInvalid && !_passInvalid) {
-    //   // Navigator.push(context, MaterialPageRoute(builder: gotoHome));
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (context) => (HomePage())));
-    // }
-    // });
+    final storage = new FlutterSecureStorage();
     final url = Uri.parse('https://mobile-project.herokuapp.com/user/login');
     var headers = {'Content-Type': 'application/json'};
     var body = jsonEncode({
@@ -192,6 +167,13 @@ class _LoginPageState extends State<LoginPage> {
     var response = await http.post(url, headers: headers, body: body);
     debugPrint('Response status: ${response.statusCode}');
     debugPrint('Response body: ${response.body}');
+    await storage.write(key: 'token', value: response.body);
+    if (response.statusCode == 200) {
+      // Navigator.push(context, MaterialPageRoute(builder: gotoHome));
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => (HomePage())));
+    }
   }
 
   Widget gotoHome(BuildContext context) {
