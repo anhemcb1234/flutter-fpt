@@ -1,10 +1,9 @@
-import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:project_app/main.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -58,8 +57,8 @@ class _HomePageState extends State<HomePage> {
     void onLogOut() async {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => (const MyApp())));
-      final storage = FlutterSecureStorage();
-      await storage.delete(key: 'token');
+      // final storage = FlutterSecureStorage();
+      // await storage.delete(key: 'token');
     }
 
     return Scaffold(

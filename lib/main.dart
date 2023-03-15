@@ -3,7 +3,7 @@ import 'package:project_app/home.dart';
 import 'package:project_app/register.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
     // Thực hiện các thao tác của hàm ở đây
     print(123);
   }
-  final storage = new FlutterSecureStorage();
+  // final storage = new FlutterSecureStorage();
   bool _showPass = false;
   final TextEditingController _userController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
@@ -166,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> onSignInClicked() async {
-    final storage = new FlutterSecureStorage();
+    // final storage = new FlutterSecureStorage();
     final url = Uri.parse('https://mobile-project.herokuapp.com/user/login');
     var headers = {'Content-Type': 'application/json'};
     var body = jsonEncode({
@@ -176,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
     var response = await http.post(url, headers: headers, body: body);
     debugPrint('Response status: ${response.statusCode}');
     debugPrint('Response body: ${response.body}');
-    await storage.write(key: 'token', value: response.body);
+    // await storage.write(key: 'token', value: response.body);
     if (response.statusCode == 200) {
       // Navigator.push(context, MaterialPageRoute(builder: gotoHome));
       // ignore: use_build_context_synchronously
