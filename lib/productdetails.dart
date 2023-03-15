@@ -60,10 +60,10 @@ class _ProductDetailState extends State<ProductDetail> {
     var headers = {'Content-Type': 'application/json'};
     var response = await http.get(url, headers: headers);
     setState(() {
-      name = jsonDecode(response.body)['data']['name'];
-      price = jsonDecode(response.body)['data']['price'];
-      quantity = jsonDecode(response.body)['data']['quantity'];
-      desc = jsonDecode(response.body)['data']['description'];
+      name = jsonDecode(utf8.decode(response.bodyBytes))['data']['name'];
+      price = jsonDecode(utf8.decode(response.bodyBytes))['data']['price'];
+      quantity = jsonDecode(utf8.decode(response.bodyBytes))['data']['quantity'];
+      desc = jsonDecode(utf8.decode(response.bodyBytes))['data']['description'];
     });
   }
 
