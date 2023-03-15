@@ -11,7 +11,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -30,6 +30,15 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    super.initState();
+    myFunction();
+  }
+   void myFunction() {
+    // Thực hiện các thao tác của hàm ở đây
+    print(123);
+  }
   final storage = new FlutterSecureStorage();
   bool _showPass = false;
   final TextEditingController _userController = TextEditingController();
@@ -183,4 +192,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget gotoRegister(BuildContext context) {
     return RegisterPage();
   }
+
+
 }
