@@ -3,6 +3,8 @@ import 'package:project_app/home.dart';
 import 'package:project_app/register.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:google_fonts/google_fonts.dart';
 // import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
@@ -11,10 +13,13 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Metropolis',
+      ),
       debugShowCheckedModeBanner: false,
       home: LoginPage(),
     );
@@ -30,15 +35,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  @override
-  void initState() {
-    super.initState();
-    myFunction();
-  }
-   void myFunction() {
-    // Thực hiện các thao tác của hàm ở đây
-    print(123);
-  }
   // final storage = new FlutterSecureStorage();
   bool _showPass = false;
   final TextEditingController _userController = TextEditingController();
@@ -58,99 +54,101 @@ class _LoginPageState extends State<LoginPage> {
             padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
             constraints: BoxConstraints.expand(),
             color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
-                  child: Container(
-                      width: 70,
-                      height: 70,
-                      padding: const EdgeInsets.all(15),
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Color(0xffd8d8d8)),
-                      child: const FlutterLogo()),
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 60),
-                  child: Text("Hello\nWelcome Back",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 30)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
-                  child: TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        _email = value;
-                      });
-                    },
-                    style: const TextStyle(fontSize: 18, color: Colors.black),
-                    controller: _userController,
-                    decoration: InputDecoration(
-                        labelText: "USERNAME",
-                        errorText: _userInvalid ? _userNameError : null,
-                        labelStyle: const TextStyle(
-                            color: Color(0xff888888), fontSize: 15)),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                    child: Container(
+                        width: 70,
+                        height: 70,
+                        padding: const EdgeInsets.all(15),
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle, color: Color(0xffd8d8d8)),
+                        child: const FlutterLogo()),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
-                  child: Stack(
-                      alignment: AlignmentDirectional.centerEnd,
-                      children: <Widget>[
-                        TextField(
-                          onChanged: (value) {
-                            setState(() {
-                              _password = value;
-                            });
-                          },
-                          style: const TextStyle(
-                              fontSize: 18, color: Colors.black),
-                          controller: _passController,
-                          obscureText: !_showPass,
-                          decoration: InputDecoration(
-                              labelText: "PASSWORD",
-                              errorText: _passInvalid ? _passError : null,
-                              labelStyle: const TextStyle(
-                                  color: Color(0xff888888), fontSize: 15)),
-                        ),
-                        GestureDetector(
-                          onTap: onToggleShowPass,
-                          child: Text(_showPass ? "HIDE" : "SHOW",
-                              style: const TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold)),
-                        )
-                      ]),
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: onSignInClicked,
-                    child: const Text('SIGN IN'),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 60),
+                    child: Text("Hello\nWelcome Back",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 30)),
                   ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text('Forgot Password?'),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                TextButton(
-                  onPressed: onClickRegister,
-                  child: const Text('Register ?'),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                    child: TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          _email = value;
+                        });
+                      },
+                      style: const TextStyle(fontSize: 18, color: Colors.black),
+                      controller: _userController,
+                      decoration: InputDecoration(
+                          labelText: "USERNAME",
+                          errorText: _userInvalid ? _userNameError : null,
+                          labelStyle: const TextStyle(
+                              color: Color(0xff888888), fontSize: 15)),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                    child: Stack(
+                        alignment: AlignmentDirectional.centerEnd,
+                        children: <Widget>[
+                          TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                _password = value;
+                              });
+                            },
+                            style: const TextStyle(
+                                fontSize: 18, color: Colors.black),
+                            controller: _passController,
+                            obscureText: !_showPass,
+                            decoration: InputDecoration(
+                                labelText: "PASSWORD",
+                                errorText: _passInvalid ? _passError : null,
+                                labelStyle: const TextStyle(
+                                    color: Color(0xff888888), fontSize: 15)),
+                          ),
+                          GestureDetector(
+                            onTap: onToggleShowPass,
+                            child: Text(_showPass ? "HIDE" : "SHOW",
+                                style: const TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold)),
+                          )
+                        ]),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: onSignInClicked,
+                      child: const Text('SIGN IN'),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Forgot Password?'),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  TextButton(
+                    onPressed: onClickRegister,
+                    child: const Text('Register ?'),
+                  ),
+                ],
+              ),
             )));
   }
 
@@ -174,8 +172,6 @@ class _LoginPageState extends State<LoginPage> {
       "password": _password,
     });
     var response = await http.post(url, headers: headers, body: body);
-    debugPrint('Response status: ${response.statusCode}');
-    debugPrint('Response body: ${response.body}');
     // await storage.write(key: 'token', value: response.body);
     if (response.statusCode == 200) {
       // Navigator.push(context, MaterialPageRoute(builder: gotoHome));
@@ -192,6 +188,4 @@ class _LoginPageState extends State<LoginPage> {
   Widget gotoRegister(BuildContext context) {
     return RegisterPage();
   }
-
-
 }

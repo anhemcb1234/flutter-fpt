@@ -3,6 +3,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:project_app/main.dart';
 import 'package:intl/intl.dart';
+import 'package:project_app/productdetails.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:google_fonts/google_fonts.dart';
 // import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,10 +17,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   @override
   void initState() {
+    super.initState();
     _loadProducts();
   }
 
@@ -28,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     final url = Uri.parse('https://mobile-project.herokuapp.com/product/list');
     var headers = {'Content-Type': 'application/json'};
     var response = await http.get(url, headers: headers);
-      setState(() {
+    setState(() {
       products = jsonDecode(response.body)['data'];
     });
     // if (response.statusCode == 200) {
@@ -44,6 +46,13 @@ class _HomePageState extends State<HomePage> {
     // setState(() {
     //   products = data as List<Product>;
     // });
+  }
+
+  void onClickToDetailProduct(int productId) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ProductDetail(productId: '$productId')));
   }
 
   Widget gotoHome(BuildContext context) {
@@ -77,8 +86,8 @@ class _HomePageState extends State<HomePage> {
           Container(
             padding: const EdgeInsets.all(10),
             child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search ',
+              decoration: const InputDecoration(
+                hintText: 'Search',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(),
               ),
@@ -90,9 +99,15 @@ class _HomePageState extends State<HomePage> {
               itemCount: products.length,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
-                  leading: Image.network(products[index]['img'] ?? 'https://th.bing.com/th/id/OIP.3y1YXD6H0_f8cTgGdj9T3AHaE7?pid=ImgDet&rs=1'),
-                  title: Text(products[index]['name']),
-                  subtitle: Text(products[index]['description']),
+                  onTap: () => onClickToDetailProduct(products[index]['id']),
+                  leading: Image.network(products[index]['img'] ??
+                      'https://th.bing.com/th/id/OIP.3y1YXD6H0_f8cTgGdj9T3AHaE7?pid=ImgDet&rs=1'),
+                  title: Text(
+                    products[index]['name'],
+                  ),
+                  subtitle: Text(
+                    products[index]['description'],
+                  ),
                   trailing: Text('\$${products[index]['price']}'),
                 );
               },
@@ -102,27 +117,10 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  Type gotoProductDetail(BuildContext context) {
+    return ProductDetail;
+  }
 }
 
-// class Product {
-//   final String name;
-//   final String description;
-//   final double price;
-//   final String imageUrl;
-
-//   Product(
-//       {required this.name,
-//       required this.description,
-//       required this.price,
-//       required this.imageUrl,
-//       required id});
-//   factory Product.fromJson(Map<String, dynamic> json) {
-//     return Product(
-//       id: json['id'],
-//       name: json['name'],
-//       price: json['price'],
-//       description: '',
-//       imageUrl: '',
-//     );
-//   }
 // }
