@@ -33,7 +33,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       products = jsonDecode(utf8.decode(response.bodyBytes))['data'];
     });
-    print(response.body);
     // if (response.statusCode == 200) {
     //   final List<dynamic> data = jsonDecode(response.body);
     //   List<Product> products = [];

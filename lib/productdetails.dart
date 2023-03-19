@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:project_app/main.dart';
 import 'package:intl/intl.dart';
 import 'package:badges/badges.dart';
+import 'package:project_app/cart_screen.dart';
 
 // import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class Product {
@@ -52,7 +53,6 @@ class _ProductDetailState extends State<ProductDetail> {
   int quantity = 0;
   String desc = '';
   int _count = 1;
-
   Future _loadProductDetail() async {
     var id = widget.productId;
     final url =
@@ -62,14 +62,28 @@ class _ProductDetailState extends State<ProductDetail> {
     setState(() {
       name = jsonDecode(utf8.decode(response.bodyBytes))['data']['name'];
       price = jsonDecode(utf8.decode(response.bodyBytes))['data']['price'];
-      quantity = jsonDecode(utf8.decode(response.bodyBytes))['data']['quantity'];
+      quantity =
+          jsonDecode(utf8.decode(response.bodyBytes))['data']['quantity'];
       desc = jsonDecode(utf8.decode(response.bodyBytes))['data']['description'];
     });
   }
 
   Future onClickOrder() async {
+    var id = widget.productId;
+    final url =
+        Uri.parse('https://mobile-project.herokuapp.com/cart/addToCart');
+    var headers = {'Content-Type': 'application/json'};
+    var body = jsonEncode({"proId": id, "quantity": _count});
+    var response = await http.post(url, headers: headers, body: body);
+    // if (response.statusCode == 200) {
+    // Navigator.push(context, MaterialPageRoute(builder: gotoHome));
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => (CartScreen())));
+    // }
     print('Buy');
   }
+
 
   void _incrementCount() {
     setState(() {
