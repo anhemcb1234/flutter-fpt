@@ -3,6 +3,7 @@ import 'package:project_app/home.dart';
 import 'package:project_app/register.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:html';
 import 'package:flutter/cupertino.dart';
 // import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -44,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
   final _passInvalid = false;
   String _email = '';
   String _password = '';
-
+  String cookie = '';
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -162,24 +163,27 @@ class _LoginPageState extends State<LoginPage> {
         context, MaterialPageRoute(builder: (context) => (RegisterPage())));
   }
 
-  Future<void> onSignInClicked() async {
+  Future onSignInClicked() async {
     // final storage = new FlutterSecureStorage();
     final url = Uri.parse('https://mobile-project.herokuapp.com/user/login');
-    var headers = {'Content-Type': 'application/json'};
+    var headers = {'Content-Type': 'application/json; charset=UTF-8'};
     var body = jsonEncode({
       "email": _email,
       "password": _password,
     });
     var id = 0;
     var response = await http.post(url, headers: headers, body: body);
-    print(response.body);
+    print(response.headers);
     // await storage.write(key: 'token', value: response.body);
+    // final cookies = jsonEncode({response.headers.map['set-cookie']});
+    // var session = response.headers['set-cookie'];
     if (response.statusCode == 200) {
       // Navigator.push(context, MaterialPageRoute(builder: gotoHome));
       // ignore: use_build_context_synchronously
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => (const HomePage())));
     }
+    // ignore: unused_element
   }
 
   Widget gotoHome(BuildContext context) {
