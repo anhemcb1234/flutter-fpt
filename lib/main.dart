@@ -179,6 +179,9 @@ class _LoginPageState extends State<LoginPage> {
     if (response.statusCode == 200) {
       // Navigator.push(context, MaterialPageRoute(builder: gotoHome));
       // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Log in success"),
+      ));
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => (HomePage())));
     }

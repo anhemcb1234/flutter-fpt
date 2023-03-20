@@ -151,6 +151,7 @@ class _RegisterPageState extends State<RegisterPage> {
     //       context, MaterialPageRoute(builder: (context) => (HomePage())));
     // }
     // });
+
     var url = Uri.parse('https://mobile-project.herokuapp.com/user/signUp');
     var headers = {'Content-Type': 'application/json'};
     var body = jsonEncode({
@@ -166,8 +167,16 @@ class _RegisterPageState extends State<RegisterPage> {
     if (response.statusCode == 200) {
       // Navigator.push(context, MaterialPageRoute(builder: gotoHome));
       // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Sign up success"),
+      ));
+      // ignore: use_build_context_synchronously
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => (MyApp())));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Please check the information fields"),
+      ));
     }
   }
 
