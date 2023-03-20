@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project_app/home.dart';
+import 'package:project_app/cart_screen.dart';
 import 'package:project_app/register.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'dart:html';
 import 'package:flutter/cupertino.dart';
 // import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -173,21 +173,16 @@ class _LoginPageState extends State<LoginPage> {
     });
     var id = 0;
     var response = await http.post(url, headers: headers, body: body);
-    print(response.headers);
     // await storage.write(key: 'token', value: response.body);
     // final cookies = jsonEncode({response.headers.map['set-cookie']});
-    // var session = response.headers['set-cookie'];
+    var session = response.headers['set-cookie'];
     if (response.statusCode == 200) {
       // Navigator.push(context, MaterialPageRoute(builder: gotoHome));
       // ignore: use_build_context_synchronously
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => (const HomePage())));
+          context, MaterialPageRoute(builder: (context) => (HomePage())));
     }
     // ignore: unused_element
-  }
-
-  Widget gotoHome(BuildContext context) {
-    return HomePage();
   }
 
   Widget gotoRegister(BuildContext context) {

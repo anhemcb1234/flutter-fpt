@@ -34,19 +34,9 @@ class _CartScreenState extends State<CartScreen> {
 
   Future onClickToOrder() async {
     // var id = widget.productId;
-    final url = Uri.parse('https://mobile-project.herokuapp.com/user/login');
-    var headers = {'Content-Type': 'application/json'};
-    var body = jsonEncode({
-      "email": '_email',
-      "password": '_password',
-    });
-    var response = await http.post(url, headers: headers, body: body);
-    if (response.statusCode == 200) {
-      // Navigator.push(context, MaterialPageRoute(builder: gotoHome));
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => (HomePage())));
-    }
+
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => (HomePage())));
 
     // setState(() {
     //   products = jsonDecode(utf8.decode(response.bodyBytes))['orderDetailList'];

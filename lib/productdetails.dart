@@ -57,6 +57,7 @@ class _ProductDetailState extends State<ProductDetail> {
     final url =
         Uri.parse('https://mobile-project.herokuapp.com/product/byId/$id');
     var headers = {'Content-Type': 'application/json'};
+    // var headers = {'Content-Type': 'application/json, Cookie: session=$cookie'};
     var response = await http.get(url, headers: headers);
     setState(() {
       name = jsonDecode(utf8.decode(response.bodyBytes))['data']['name'];
@@ -83,6 +84,21 @@ class _ProductDetailState extends State<ProductDetail> {
     print('Buy');
   }
 
+  // Future onSignInClicked() async {
+  //   // final storage = new FlutterSecureStorage();
+  //   final url = Uri.parse('https://mobile-project.herokuapp.com/user/login');
+  //   var headers = {'Content-Type': 'application/json; charset=UTF-8'};
+  //   var body = jsonEncode({
+  //     "email": 'tung@gmail.com',
+  //     "password": '123',
+  //   });
+  //   var id = 0;
+  //   var response = await http.post(url, headers: headers, body: body);
+  //   // await storage.write(key: 'token', value: response.body);
+  //   // final cookies = jsonEncode({response.headers.map['set-cookie']});
+  //   var session = response.headers['set-cookie'];
+  //   cookie = session!;
+  // }
 
   void _incrementCount() {
     setState(() {

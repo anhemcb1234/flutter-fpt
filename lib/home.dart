@@ -9,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-
   @override
   // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
@@ -21,13 +20,14 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _loadProducts();
   }
-
+  String cookie = '';
   List products = [];
 
   Future _loadProducts() async {
     // final products = await ProductService.fetchProducts();
     final url = Uri.parse('https://mobile-project.herokuapp.com/product/list');
     var headers = {'Content-Type': 'application/json'};
+
     var response = await http.get(url, headers: headers);
     setState(() {
       products = jsonDecode(utf8.decode(response.bodyBytes))['data'];
@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
         MaterialPageRoute(
             builder: (context) => ProductDetail(productId: '$productId')));
   }
+
 
   Widget gotoHome(BuildContext context) {
     return const MyApp();
