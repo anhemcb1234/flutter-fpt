@@ -75,7 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
             Column(children: [
               TextField(
                 readOnly: true,
-                controller: _addressController,
+                controller: _dateController,
                 decoration: InputDecoration(
                   hintText: 'Date $_date',
                 ),
