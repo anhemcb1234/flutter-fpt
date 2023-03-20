@@ -84,7 +84,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: () {
                     DatePicker.showDatePicker(context,
                         showTitleActions: true,
-                        minTime: DateTime(2018, 3, 5),
                         maxTime: DateTime.now(),
                         theme: const DatePickerTheme(
                             headerColor: Colors.orange,
