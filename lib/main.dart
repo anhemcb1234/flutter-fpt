@@ -4,7 +4,6 @@ import 'package:project_app/register.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
-import 'package:google_fonts/google_fonts.dart';
 // import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
@@ -171,13 +170,15 @@ class _LoginPageState extends State<LoginPage> {
       "email": _email,
       "password": _password,
     });
+    var id = 0;
     var response = await http.post(url, headers: headers, body: body);
+    print(response.body);
     // await storage.write(key: 'token', value: response.body);
     if (response.statusCode == 200) {
       // Navigator.push(context, MaterialPageRoute(builder: gotoHome));
       // ignore: use_build_context_synchronously
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => (HomePage())));
+          context, MaterialPageRoute(builder: (context) => (const HomePage())));
     }
   }
 

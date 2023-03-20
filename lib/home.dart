@@ -5,7 +5,6 @@ import 'package:project_app/main.dart';
 import 'package:intl/intl.dart';
 import 'package:project_app/productdetails.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:google_fonts/google_fonts.dart';
 // import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class HomePage extends StatefulWidget {
@@ -33,7 +32,6 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       products = jsonDecode(utf8.decode(response.bodyBytes))['data'];
     });
-    print(response.body);
     // if (response.statusCode == 200) {
     //   final List<dynamic> data = jsonDecode(response.body);
     //   List<Product> products = [];

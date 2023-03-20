@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:project_app/main.dart';
 import 'package:intl/intl.dart';
-import 'package:badges/badges.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 
 // import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class Product {
@@ -62,12 +62,21 @@ class _ProductDetailState extends State<ProductDetail> {
     setState(() {
       name = jsonDecode(utf8.decode(response.bodyBytes))['data']['name'];
       price = jsonDecode(utf8.decode(response.bodyBytes))['data']['price'];
-      quantity = jsonDecode(utf8.decode(response.bodyBytes))['data']['quantity'];
+      quantity =
+          jsonDecode(utf8.decode(response.bodyBytes))['data']['quantity'];
       desc = jsonDecode(utf8.decode(response.bodyBytes))['data']['description'];
     });
   }
 
   Future onClickOrder() async {
+    // Fluttertoast.showToast(
+    //     msg: "Order success",
+    //     toastLength: Toast.LENGTH_SHORT,
+    //     gravity: ToastGravity.BOTTOM,
+    //     timeInSecForIosWeb: 1,
+    //     backgroundColor: Colors.red,
+    //     textColor: Colors.white,
+    //     fontSize: 16.0);
     print('Buy');
   }
 
